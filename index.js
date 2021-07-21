@@ -49,7 +49,15 @@ app.post("/addOrder", (req, res) => {
   newOrder.save((err, book) => {
     if (err) return;
     console.error(err);
-    res.send("saved to bookstore collection.");
+    res.json({ ...newOrder._doc, added: true });
+  });
+});
+
+app.post("/deleteOrder", (req, res) => {
+  const { orderId } = req.body;
+  Order.findByIdAndRemove(orderId, function (err, deletedOrder) {
+    if (err) return;
+    res.json({ ...deletedOrder._doc, deleted: true });
   });
 });
 
