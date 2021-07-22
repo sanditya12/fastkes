@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/pick_hospital_page.dart';
+import '../pages/pickup_input_page.dart';
 
 class OrderButton extends StatelessWidget {
   const OrderButton({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class OrderButton extends StatelessWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => PickHospitalPage()),
+          MaterialPageRoute(builder: (context) => PickUpInputPage()),
         );
       },
       child: Icon(

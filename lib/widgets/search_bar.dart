@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatelessWidget {
   const SearchBar({
     Key? key,
+    required this.hintString,
   }) : super(key: key);
+
+  final String hintString;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +20,7 @@ class SearchBar extends StatelessWidget {
           cursorColor: Theme.of(context).primaryColor,
           style: TextStyle(fontSize: 20),
           decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(0),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Color(0xFFDADADA),
@@ -32,7 +36,7 @@ class SearchBar extends StatelessWidget {
             ),
             filled: true,
             hintStyle: TextStyle(color: Colors.grey[500]),
-            hintText: "Cari rumah sakit",
+            hintText: hintString,
             fillColor: Theme.of(context).scaffoldBackgroundColor,
             focusColor: Theme.of(context).primaryColor,
             prefixIcon: Icon(Icons.search_sharp, color: Colors.grey[500]),

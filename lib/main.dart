@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //* Provider for Hospital VM
     return ChangeNotifierProvider<HospitalsListViewModel>(
       create: (_) => HospitalsListViewModel(),
       child: MaterialApp(

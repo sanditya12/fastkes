@@ -29,13 +29,13 @@ class HospitalsButton extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              Icons.add_location_sharp,
+              Icons.phone_in_talk_sharp,
               color: Theme.of(context).primaryColor,
               size: 32,
             ),
             SizedBox(width: 8),
             Text(
-              'RUMAH SAKIT',
+              'CARI AMBULANS',
               style: GoogleFonts.montserrat(
                 color: Color(0xff46161A),
                 textStyle: TextStyle(

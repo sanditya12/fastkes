@@ -22,22 +22,14 @@ class TransparentAppBar extends StatelessWidget implements PreferredSizeWidget {
           textStyle: TextStyle(
             color: textColor,
             fontWeight: FontWeight.bold,
-            fontSize: 24,
+            fontSize: 20,
           ),
         ),
       ),
       centerTitle: true,
-      leading: GestureDetector(
-        onTap: () {
-          Navigator.pop(context);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Icon(
-            Icons.arrow_back,
-            color: textColor,
-          ),
-        ),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back, color: textColor),
+        onPressed: () => Navigator.of(context).pop(),
       ),
     );
   }

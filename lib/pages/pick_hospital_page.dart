@@ -1,8 +1,10 @@
+import 'package:fastkes_app/widgets/hospital_tile.dart';
 import 'package:fastkes_app/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import '../widgets/transparent_appbar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'pickup_input_page.dart';
 
 class PickHospitalPage extends StatelessWidget {
   final Color dividerColor = Color(0xff636464);
@@ -14,30 +16,32 @@ class PickHospitalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: TransparentAppBar(
-        title: 'Order Ambulance',
-      ),
+      appBar: TransparentAppBar(title: 'Pilih Fasilitas Kesehatan'),
       body: Column(
         children: [
           Expanded(
             flex: 1,
-            // child: Container(
-            //   width: double.infinity,
-            //   color: Colors.green[400],
-            //   child: Text('Map'),
-            // ),
-            child: GoogleMap(
-              initialCameraPosition: _initialCameraPosition,
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: false,
+            child: Container(
+              width: double.infinity,
+              color: Colors.green[400],
+              child: Text('Map'),
             ),
+
+            // TODO: Bikin function supaya langsung center Mapsnya ke User location
+            // child: GoogleMap(
+            //   initialCameraPosition: _initialCameraPosition,
+            //   myLocationButtonEnabled: false,
+            //   zoomControlsEnabled: false,
+            // ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: SearchBar(),
+            child: SearchBar(
+              hintString: 'Cari rumah sakit',
+            ),
           ),
           Expanded(
-            flex: 2,
+            flex: 1,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ListView.separated(
@@ -45,32 +49,18 @@ class PickHospitalPage extends StatelessWidget {
                   color: dividerColor,
                 ),
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hospital',
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
+                  return HospitalTile(
+                    index: index,
+                    showIcon: false,
+                    onUserInput: () {
+                      //TODO: Update hospital code in order vm
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PickUpInputPage(),
                         ),
-                        SizedBox(height: 6),
-                        Text(
-                          'Subtitle',
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff636464),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   );
                 },
                 itemCount: 20,

@@ -12,6 +12,8 @@ class HospitalsList extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
+
+        //* Consumer for HospitalListViewModel
         child: Consumer<HospitalsListViewModel>(
           builder: (context, model, child) {
             return ListView.separated(
@@ -21,6 +23,7 @@ class HospitalsList extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return HospitalTile(
                   index: index,
+                  onUserInput: () {},
                 );
               },
               itemCount: 20, // TODO: Replace with model.getLength

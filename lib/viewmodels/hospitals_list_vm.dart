@@ -10,6 +10,24 @@ class HospitalsListViewModel with ChangeNotifier {
 
   int getLength() => _hospitalsList.length;
 
+  List<HospitalModel> searchList(String keyword) {
+    List<HospitalModel> searchResult = [];
+
+    if (keyword != '') {
+      for (var hospital in _hospitalsList) {
+        isLoading = true;
+        notifyListeners();
+        if (hospital.name.contains(keyword)) {
+          searchResult.add(hospital);
+        }
+        isLoading = false;
+        notifyListeners();
+      }
+    }
+
+    return searchResult;
+  }
+
   String getName(int index) {
     return _hospitalsList[index].name;
   }
