@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
   nama: String,
+  no_telp: String,
   alamat: String,
   kode_rumah_sakit: String,
 });
