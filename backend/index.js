@@ -7,6 +7,7 @@ const axios = require("axios");
 const { model: Hospital } = require("./models/hospital");
 const { model: User } = require("./models/user");
 const Order = require("./models/order");
+const { response } = require("express");
 
 const app = express();
 app.use(express.json());
@@ -69,22 +70,32 @@ app.post("/deleteOrder", (req, res) => {
   });
 });
 
-app.post("/findNearbyHospital", (req, res) => {
+app.post("/findNearbyHospitals", (req, res) => {
   const { alamat } = req.body;
 
   Hospital.find({}).then((hospitals) => {
-    const promises = hospitals.map((hospital) => {
+    const responses = [];
+    let succesfulHospital = hospitals.length;
+    hospitals.map((hospital) => {
       destination = `Rumah Sakit ${hospital.nama_rumah_sakit} ${hospital.kota_administrasi}`;
-      return hitUrl(getUrl(destination, alamat), destination);
+      hitUrl(
+        getUrl(destination, alamat),
+        destination,
+        hospital.kode_rumah_sakit
+      )
+        .then((data) => {
+          // data.success ? responses.push(data) : succesfulHospital--;
+          responses.push(data);
+          if (responses.length === hospitals.length) {
+            res.json(
+              responses.sort((a, b) => a.result.distance - b.result.distance)
+            );
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     });
-
-    Promise.all(promises)
-      .then((data) => {
-        res.json(data);
-      })
-      .catch((error) => {
-        res.json(error);
-      });
   });
 });
 
@@ -92,24 +103,33 @@ const getUrl = (destination, alamat) => {
   return `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=${alamat}&destinations=${destination}&key=${process.env.GOOGLE_API_KEY}`;
 };
 
-const hitUrl = (url, destination) => {
+const hitUrl = (url, destination, kodeRumahSakit) => {
   return axios
     .get(url)
     .then((result) => {
       // console.log(JSON.stringify(result, null, 4));
       return {
         success: true,
-        result: constructResponse(result.data, destination),
+        result: constructResponse(result.data, destination, kodeRumahSakit),
       };
     })
     .catch((error) => {
-      return { success: false };
+      return {
+        success: false,
+        result: {
+          nama_rumah_sakit: destination,
+          kode_rumah_sakit: kodeRumahSakit,
+          distance: -1,
+          duration: -1,
+        },
+      };
     });
 };
 
-const constructResponse = (result, destination) => {
+const constructResponse = (result, destination, kodeRumahSakit) => {
   return {
     nama_rumah_sakit: destination,
+    kode_rumah_sakit: kodeRumahSakit,
     distance: result.rows[0].elements[0].distance.value,
     duration: result.rows[0].elements[0].duration.value,
   };
