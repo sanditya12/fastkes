@@ -1,1 +1,1 @@
-worker:npm run --prefix backend start
+worker:npm run start
