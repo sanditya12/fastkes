@@ -1,4 +1,4 @@
-require("dotenv").config();
+// require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -135,7 +135,7 @@ const constructResponse = (result, destination, kodeRumahSakit) => {
   };
 };
 
-const port = 3000;
+const port = process.env.PORT || 80;
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
 });
