@@ -1,0 +1,21 @@
+{
+  "name": "API-ZakaPinar",
+  "version": "1.0.0",
+  "description": "An ambulance ordering management system using mobile application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanditya12/fastkes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanditya12/fastkes/issues"
+  },
+  "homepage": "https://github.com/sanditya12/fastkes#readme"
+}
