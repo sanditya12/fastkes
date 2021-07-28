@@ -50,8 +50,9 @@ app.post("/showHospitalOrders", (req, res) => {
 });
 
 app.post("/addOrder", (req, res) => {
-  const { no_telp, alamat, kode_rumah_sakit } = req.body;
+  const { no_telp, alamat, kode_rumah_sakit, nama } = req.body;
   const newOrder = new Order({
+    nama: nama,
     no_telp: no_telp,
     alamat: alamat,
     kode_rumah_sakit: kode_rumah_sakit,
