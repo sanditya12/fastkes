@@ -1,5 +1,5 @@
 # FASTKES
-An ambulance ordering management system using mobile application
+An ambulance ordering application with Flutter as the client-side.
 
 
 ## Screenshots
